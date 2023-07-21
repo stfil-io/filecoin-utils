@@ -1,0 +1,49 @@
+{
+  "name": "@stfil/filecoin-utils",
+  "version": "1.0.0",
+  "main": "./build/index.js",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "author": "STFIL <stfilio@163.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stfil-io/filecoin-utils"
+  },
+  "homepage": "https://github.com/stfil-io/filecoin-utils",
+  "keywords": [
+    "token",
+    "filecoin",
+    "crypto",
+    "wallet"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Filecoin utils is a tool for filecoin address resolution, signature, and signature verification.",
+  "scripts": {
+    "prebuild": "rm -rf build",
+    "build": "yarn run build:lib && yarn run build:types",
+    "build:lib": "tsc --build tsconfig.json",
+    "build:types": "tsc --emitDeclarationOnly",
+    "lint": "yarn run lint:style && yarn run lint:types",
+    "lint:types": "tsc --noEmit --pretty",
+    "lint:style": "eslint --color 'src/**/*.{js,ts,tsx}'",
+    "lint:style:fix": "yarn run lint:style --fix",
+    "test": "exit 0"
+  },
+  "dependencies": {
+    "@ipld/dag-cbor": "7.0.3",
+    "blakejs": "^1.2.1",
+    "bn.js": "^5.2.1",
+    "buffer": "^6.0.3",
+    "leb128": "^0.0.5",
+    "secp256k1": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.1",
+    "@types/secp256k1": "^4.0.3",
+    "eslint": "^8.21.0",
+    "typescript": "^4.7.4"
+  }
+}
