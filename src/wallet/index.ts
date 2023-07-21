@@ -44,7 +44,28 @@ export class Wallet {
    */
   static signTransaction = async (accountData: Pick<AccountData, 'privateKey' | 'type'>, tx: Transaction): Promise<Signature> => {
     const serializedTx = await tx.serialize()
-    const txDigest = getDigest(serializedTx)
+    return Wallet.sign(accountData, serializedTx)
+  }
+
+  /**
+   * Sign a transaction using account the private key
+   * @param accountData - account data generated from deriving a new account
+   * @param tx - transaction to sign
+   * @returns generated signature
+   */
+  static signTransactionRaw = async (accountData: Pick<AccountData, 'privateKey' | 'type'>, tx: string | Buffer): Promise<Signature> => {
+    const serializedTx = Buffer.from(tx)
+    return Wallet.sign(accountData, serializedTx)
+  }
+
+  /**
+   * Sign a transaction using account the private key
+   * @param accountData - account data generated from deriving a new account
+   * @param tx - transaction to sign
+   * @returns generated signature
+   */
+  protected static sign = async (accountData: Pick<AccountData, 'privateKey' | 'type'>, tx: Buffer): Promise<Signature> => {
+    const txDigest = getDigest(tx)
     const { privateKey, type } = accountData
 
     switch (type) {
